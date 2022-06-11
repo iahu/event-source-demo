@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h4>source event</h4>
+  <button id="btn">close it</button>
+  <ul class="list"></ul>
+
+  <script>
+    const es = new EventSource('/es');
+
+    const list = document.querySelector('.list');
+    const appendMsg = (text) => {
+      const el = document.createElement('li');
+      el.innerText = text;
+      list.append(el)
+    }
+
+    es.onopen = e => {
+      appendMsg('event source opened');
+    }
+    es.onerror = e => {
+      appendMsg('event source failed');
+    }
+
+    // overwrite onmessage method to listen 'message' type message
+    es.onmessage = e => {
+      appendMsg(`message: ${e.data}`);
+    }
+
+    // or use addEventListener to listen any event type message
+    es.addEventListener('ping', (e) => {
+      appendMsg(`ping: ${e.data}`);
+    })
+    es.addEventListener('close', (e) => {
+      es.close()
+      appendMsg('event source closed');
+    })
+
+    document.querySelector('#btn').addEventListener('click', () => {
+      es.close()
+      appendMsg('closed by click');
+    })
+  </script>
+</body>
+</html>

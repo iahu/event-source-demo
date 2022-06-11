@@ -1,0 +1,22 @@
+{
+  "name": "event-source-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "EventSource",
+    "Node.js",
+    "Demo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
